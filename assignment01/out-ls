@@ -1,0 +1,12 @@
+total 460
+-rw------- 1 mkashoko notre-dame 287292 Aug 30 22:22 100
+-rw------- 1 mkashoko notre-dame    166 Aug 30 22:32 host-ip-mac.csv
+-rw------- 1 mkashoko notre-dame     17 Aug 30 19:41 linecount.txt
+-rw------- 1 mkashoko notre-dame      9 Aug 30 19:39 mkashoko
+-rw------- 1 mkashoko notre-dame  80171 Aug 30 19:41 Out-Dump.txt
+-rw------- 1 mkashoko notre-dame      0 Aug 30 22:33 out-ls
+-rw------- 1 mkashoko notre-dame   3714 Aug 30 22:17 output-endFile.txt
+-rw------- 1 mkashoko notre-dame     58 Aug 30 22:26 output-reverse.txt
+-rw------- 1 mkashoko notre-dame   1853 Aug 30 22:17 output-startFile.txt
+-rw------- 1 mkashoko notre-dame    100 Aug 30 22:24 output-xxd.txt
+-rw------- 1 mkashoko notre-dame  67592 Aug 30 22:19 Test-Small.pcap
