@@ -35,7 +35,7 @@ echo SCANNING
 #Now getting a list of the new files in the archive directory (These are the ones that are going to be scanned, and deleted at the end)
 NewFiles=$(ls archive | tr ' ' '\n')
 
-#Nested for loop which checks each file from NewFiles and OldFiles to see which ones do not match.
+#Nested for loop which checks each file from NewFiles and OldFiles to see which ones do not match. It runs very slow if there are a lot of files
 for i in $NewFiles; do
   IsNew=true
 
