@@ -4,7 +4,7 @@ OldFiles=false
 
 #Getting list of all the files originally in the archive directory and comparing them to the new files if the archive directory exists
 if [ -e archive ]; then
-  OldFiles=$(ls archive | tr ' ' '\n')
+  OldFiles=$(ls archive | tr [:space:] '\n')
 fi
 
 #Translating all the space characters to newlines
@@ -33,7 +33,7 @@ echo SCANNING
 #done
 
 #Now getting a list of the new files in the archive directory (These are the ones that are going to be scanned, and deleted at the end)
-NewFiles=$(ls archive | tr ' ' '\n')
+NewFiles=$(ls archive | tr [:space:] '\n')
 
 #Nested for loop which checks each file from NewFiles and OldFiles to see which ones do not match. It runs very slow if there are a lot of files
 for i in $NewFiles; do

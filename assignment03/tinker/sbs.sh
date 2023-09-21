@@ -6,7 +6,7 @@
 BadFiles=`cat $1 | grep -Eo "(http|https)://[a-zA-Z0-9./?=_%:-]*" | uniq`
 
 #The BadFiles variable is currently separated by spaces for each URL, but the for loop does not like this so i convert every space character to a new line
-BadFiles=$(echo "$BadFiles" | tr ' ' '\n')
+BadFiles=$(echo "$BadFiles" | tr [:space:]' '\n')
 
 IsClean=true
 
