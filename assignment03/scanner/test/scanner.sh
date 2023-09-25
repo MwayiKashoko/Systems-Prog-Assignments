@@ -23,9 +23,11 @@ if ! [ -e $4 ]; then
   mkdir $4
 fi
 
-logLine=`date,`
+logLine=`date`
+logLine="$logLine,"
 
 #File containing the malicious URLs
+
 if ! [ -e $5 ]; then
   echo "THIS FILE DOES NOT EXIST"
   exit 1
@@ -70,37 +72,39 @@ extract_file() {
       test1=`sh ../../tinker/sbs.sh ../../badsites/badsite-100.csv $i`
       test2=`sh $i`
 
-      if "cat $test1 | grep MALICIOUSURL"; then
+      if `cat $test1 | grep MALICIOUSURL`; then
         reason1=MALICIOUSURL
         reason2="URLNAME IF I CAN FIGURE OUT HOW TO DO IT"
         mv $i $3
-      elif "cat $test2 | grep SENSITIVE"; then
+      elif `cat $test2 | grep SENSITIVE`; then
         reason1=SENSITIVE
         reason2="MARKED SENSITIVE"
 
-        if "cat $test2 | grep SSN"; then;
+        if `cat $test2 | grep SSN`; then
           reason2="SSN"
         fi
 
         mv $i $3
       else
-        logLine=`$logLine, date, $i, APPROVE`
+        logLine+=", "
+        #logLine+=`date, $i, APPROVE`
         mv $i $2
       fi
     done
   fi
 
   if ! [ $reason1 = none ]; then
-    logLine=`$logLine, date, $i, QUARANTINE, $reason1, $reason2`
+    logLine+=", "
+    #logLine=`$logLine, date, $i, QUARANTINE, $reason1, $reason2`
 
-    touch $3/$1.reason
+    touch $4.reason
 
-    echo $3/$1 >> $3/$1.reason
-    echo $reason1 >> $3/$1.reason
-    echo $reason2 >> $3/$1.reason
+    echo "$3/$1" >> $4.reason
+    echo "$reason1" >> $4.reason
+    echo "$reason2" >> $4.reason
   fi
 
-  echo successfully extracted $Filetype file
+  echo "successfully extracted $Filetype file"
 }
 
 NumFiles=`find $1 -type f | wc -l`
@@ -109,10 +113,10 @@ while true; do
   if [ $NumFiles -gt 0 ]; then
     for i in `find $1 -type f`; do
       #Filetype contains the extension of the file we are extracting in order to determine which command is needed
-      Filetype=`echo i | rev | cut -d '.' -f1 | rev`
+      Filetype=`echo $i | rev | cut -d '.' -f1 | rev`
 
       #If the command argument exists in the directory then the code will continue to run
-      extract_file $i
+      extract_file $i $2 $3 $4
 
       NumFiles=$(($NumFiles-1))
     done
@@ -124,6 +128,7 @@ done
 appendexit() {
   logLine=`$logLine, date`
   echo $logLine >> $4
+  rm -r extractedfiles
 }
 
 trap appendexit SIGINT
