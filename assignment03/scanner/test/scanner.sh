@@ -86,16 +86,14 @@ extract_file() {
 
         mv $i $3
       else
-        logLine+=", "
-        #logLine+=`date, $i, APPROVE`
+        logLine+=`$logLine, date, $i, APPROVE`
         mv $i $2
       fi
     done
   fi
 
   if ! [ $reason1 = none ]; then
-    logLine+=", "
-    #logLine=`$logLine, date, $i, QUARANTINE, $reason1, $reason2`
+    logLine=`$logLine, date, $i, QUARANTINE, $reason1, $reason2`
 
     touch $4.reason
 
