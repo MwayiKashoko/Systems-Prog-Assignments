@@ -5,7 +5,8 @@ File=$1
 
 #Tests if the file exists. If it does then the program will run
 if ! [ -e $File ]; then
-  echo FILE DOES NOT EXIT
+  echo FILE DOES NOT EXIST
+  printf "\n"
   exit 1
 fi
 
@@ -53,3 +54,5 @@ if [ "$2" = top ]; then
   echo "$HighestURL"
   echo "shows up $HighestURLCount times"
 fi
+
+printf "\n"

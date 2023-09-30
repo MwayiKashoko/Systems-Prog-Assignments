@@ -59,3 +59,4 @@ if len(sys.argv) > 2 and sys.argv[2] == "top":
     print("Shows up", highestURLCount, "times")
 
 file.close()
+print()
