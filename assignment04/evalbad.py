@@ -35,19 +35,19 @@ for i in file:
 #determining if the 2nd command line argument exists and if it equals top
 if len(sys.argv) > 2 and sys.argv[2] == "top":
     #for loop goes through each element in the uniqueURLS set and compares it in each line of the file to see which url shows up the most
-    for i in range(0, len(uniqueURLS)):
+    for IP in uniqueURLS:
         #goes back to the beginning of the file
         file.seek(0)
         count=0
         for line in file:
             line = line.rstrip()
 
-            if re.findall(list(uniqueURLS)[i], line):
+            if re.findall(IP, line):
                 count+=1
     
         if count > highestURLCount:
             highestURLCount=count
-            highestURL=list(uniqueURLS)[i]
+            highestURL=IP
             
 print("Evaluating bad URL file", sys.argv[1])
 print("IP Addresses:", numIPS)

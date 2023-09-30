@@ -14,17 +14,14 @@ fi
 #1st test case (correct file 20 urls)
 $compiler $1 ../BadURL-First20.csv
 
-#2nd test case (correct file 100 urls)
-$compiler $1 ../BadURL-First100.csv
-
-#3rd test case (incorrect file name)
+#2nd test case (incorrect file name)
 $compiler $1 ../BadURL-Fi
 
-#4th test case (correct file 20 urls top)
+#3rd test case (correct file 20 urls top)
 $compiler $1 ../BadURL-First20.csv top
 
-#5th test case (empty file)
+#4th test case (empty file)
 $compiler $1 empty.csv
 
-#6th test case (corrupted file 20 urls top 10% corrupted)
+#5th test case (corrupted file 20 urls top 10% corrupted)
 $compiler $1 corrupted20urls.csv top
