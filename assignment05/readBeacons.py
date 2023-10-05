@@ -8,12 +8,15 @@ except:
     print("File is non-existant or not enough arguments")
     exit()
 
-jsonFile = json.load(f)
+try:
+    jsonFile = json.load(f)
+except:
+    print("File can't be parsed")
+    exit()
 
 numBeacons = 0
 
 for data in jsonFile:
-    
     print(data["factory_id"])
     print(data["name"])
     print(data["hardware"])
@@ -25,3 +28,4 @@ for data in jsonFile:
 print("Total number of beacons:", numBeacons)
 
 f.close()
+
