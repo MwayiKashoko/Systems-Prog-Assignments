@@ -18,6 +18,7 @@ jsonFiles = []
 beacons = []
 selectedBeacons = []
 numArr = 0
+testList = []
 
 #makes sure command line arguments are correct and able to be parsed
 try:
