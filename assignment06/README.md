@@ -92,3 +92,5 @@ It seems that the average time to load the JSON files is around 0.057624 seconds
 
 NETID: mkashoko
 EMAIL: 22mkashoko@gmail.com
+
+Turned in before 10:00 p.m. Friday
