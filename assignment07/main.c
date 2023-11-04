@@ -61,6 +61,5 @@ int main (int argc, char *argv[])
 
     printf("  Total Duplicate Percent: %6.2f%%\n", fPct);
 
-
     return 0;
 }

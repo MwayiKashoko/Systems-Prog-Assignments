@@ -16,7 +16,7 @@
 #include "pcap-read.h"
 #include "pcap-process.h"
 
-#define SHOW_DEBUG	0
+#define SHOW_DEBUG 0
 
 char parsePcapFileStart (FILE * pTheFile, struct FilePcapInfo * pFileInfo)
 {
@@ -133,10 +133,10 @@ struct Packet * readNextPacket (FILE * pTheFile, struct FilePcapInfo * pFileInfo
 		printf("DEBUG:   Targeted amount is 16 bytes in total\n");
 	}
 
-	fread((char *) &(pPacket->TimeCapture.tv_sec), 1, sizeof(uint32_t), pTheFile);
+  fread((char *) &(pPacket->TimeCapture.tv_sec), 1, sizeof(uint32_t), pTheFile);
 	fread((char *) &(pPacket->TimeCapture.tv_usec), 1, sizeof(uint32_t), pTheFile);
 	fread((char *) &(pPacket->LengthIncluded), 1, sizeof(uint32_t), pTheFile);
-	fread((char *) &(pPacket->LengthOriginal), 1, sizeof(uint32_t), pTheFile);
+  fread((char *) &(pPacket->LengthOriginal), 1, sizeof(uint32_t), pTheFile);
 
 	if(SHOW_DEBUG) 
 	{
@@ -226,6 +226,8 @@ char readPcapFile (struct FilePcapInfo * pFileInfo)
 				break;
 			}
 		}
+
+    //discardPacket(pPacket);
 	}
 
 	fclose(pTheFile);

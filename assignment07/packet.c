@@ -9,12 +9,15 @@ struct Packet * allocatePacket (uint16_t DataSize)
 {
     struct Packet * pPacket;
 
+    uint16_t num = DataSize;
+
     if(DataSize > PKT_SIZE_LIMIT)
     {   
         /* Removed - causing issues */
         /* Future: Make sure to test for this on a return */
         // printf("Error - Requested data size (%d) was too big (more than %d)\n", DataSize, PKT_SIZE_LIMIT);
-        return NULL;
+        //return NULL;
+        num = PKT_SIZE_LIMIT;
     }
 
     pPacket = (struct Packet *) malloc(sizeof(struct Packet));
@@ -25,7 +28,7 @@ struct Packet * allocatePacket (uint16_t DataSize)
         return NULL;
     }
 
-    pPacket->Data = (uint8_t *) malloc(sizeof(uint8_t) * DataSize);
+    pPacket->Data = (uint8_t *) malloc(sizeof(uint8_t) * num);
 
     if(pPacket->Data == NULL)
     {
@@ -36,7 +39,7 @@ struct Packet * allocatePacket (uint16_t DataSize)
 
     /* Everything is good at this point */
 
-    pPacket->SizeDataMax = DataSize;
+    pPacket->SizeDataMax = num;
     pPacket->LengthIncluded = 0;
     pPacket->LengthOriginal = 0;
     pPacket->TimeCapture.tv_sec = 0;
