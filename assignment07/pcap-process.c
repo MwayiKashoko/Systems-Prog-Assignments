@@ -73,11 +73,13 @@ void resetAndSaveEntry (int nEntry)
 
     gPacketHitCount += BigTable[nEntry].HitCount;
     gPacketHitBytes += BigTable[nEntry].RedundantBytes;
+
     discardPacket(BigTable[nEntry].ThePacket);
 
     BigTable[nEntry].HitCount = 0;
     BigTable[nEntry].RedundantBytes = 0;
     BigTable[nEntry].ThePacket = NULL;
+    
 }
 
 void processPacket (struct Packet * pPacket)

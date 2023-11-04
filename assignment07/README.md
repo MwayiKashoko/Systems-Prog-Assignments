@@ -1,0 +1,6 @@
+Name: Mwayi Kashoko
+Email: mkashoko@nd.edu
+
+For task 5 I honestly had not idea what was happening when running gdb, so I was stuck for a while. After this though, I realized that I should look through the code, and when I looked through the packet.c file, I saw that it was returning a null pointer if the size was too large. I knew that segfaults happen when you are trying to access memory that is not allowed, so when I saw this I was confused on why the student returned NULL. So I fixed this by making a temporary variable called num which stored DataSize, and if the DataSize was too large I just shrunk it to the max size limit given in the code. This seemed to work as I was producing the right values for my code.
+
+Task 6 went by a lot quicker because valgrind is much more helpful in my opinion. It showed me each line which was causing leaks and tracing back to the functions I saw a few malloc calls that were never freed, so I freed them. The BigTable was never freed so I freed that first, and the string theInfo.FileName was never freed so I freed that as well and there were no more leaks. I thought that was all until I was getting errors from line 171 in pcap-read.c. I had no idea why there was an error until I realized I needed to use pPacket->SizeDataMax instead of the Length. These changes made sure that there were no memory leaks in the code.

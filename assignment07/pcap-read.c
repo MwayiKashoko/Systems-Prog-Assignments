@@ -16,7 +16,7 @@
 #include "pcap-read.h"
 #include "pcap-process.h"
 
-#define SHOW_DEBUG 0
+#define SHOW_DEBUG 1
 
 char parsePcapFileStart (FILE * pTheFile, struct FilePcapInfo * pFileInfo)
 {
@@ -168,7 +168,7 @@ struct Packet * readNextPacket (FILE * pTheFile, struct FilePcapInfo * pFileInfo
 
 	int nReadBytes;
 
-	nReadBytes = fread(pPacket->Data, 1, pPacket->LengthIncluded, pTheFile);
+	nReadBytes = fread(pPacket->Data, 1, pPacket->SizeDataMax, pTheFile);
 
 	if(SHOW_DEBUG) 
 	{
@@ -227,7 +227,6 @@ char readPcapFile (struct FilePcapInfo * pFileInfo)
 			}
 		}
 
-    //discardPacket(pPacket);
 	}
 
 	fclose(pTheFile);
