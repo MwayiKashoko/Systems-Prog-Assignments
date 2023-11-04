@@ -61,5 +61,8 @@ int main (int argc, char *argv[])
 
     printf("  Total Duplicate Percent: %6.2f%%\n", fPct);
 
+    free(theInfo.FileName);
+    free(BigTable);
+
     return 0;
 }

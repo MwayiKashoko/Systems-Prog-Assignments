@@ -1,5 +1,5 @@
 CC=		gcc
-CFLAGS=		-Wall -std=gnu99
+CFLAGS=		-Wall -std=gnu99 -g
 AR=		ar
 ARFLAGS=	rcs
 LD=		gcc
