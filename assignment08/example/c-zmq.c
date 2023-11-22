@@ -37,9 +37,13 @@ int main (void)
     for (request_nbr = 0; ; request_nbr++) {
         printf ("Sending go %d...\n", request_nbr);
 
+        //Allows for user input
         char input[BUFSIZ];
+
+        //Getting user input
         fgets(input, BUFSIZ, stdin);
 
+        //if the user inputs exit exit the code
         if (strcmp("exit\n", input) == 0) {
           break;
         }

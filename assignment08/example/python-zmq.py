@@ -13,6 +13,7 @@ import re
 context = zmq.Context()
 socket = context.socket(zmq.REP)
 
+#URLS that the server will connect to 
 requestURL1 = "http://ns-mn1.cse.nd.edu/sysprogfa23/assignment08/test/data.json"
 requestURL2 = "http://ns-mn1.cse.nd.edu/sysprogfa23/assignment08/test/data-switch.json"
 currURL = requestURL1
@@ -47,11 +48,11 @@ while True:
 
         firstRequest = False
 
+    #Getting the message and putting it in a better more readable format
     text = re.findall("'([^']*)'", str(message))[0]
     text = text[0:len(text)-2]
 
-    print(text)
-
+    #Makes sure the case matches. This switches the urls if the text is switch
     if "switch" == text.lower():
         if currURL == requestURL1:
             currURL = requestURL2
@@ -77,7 +78,7 @@ while True:
     elif hasSend:
         socket.send_string(jsonFile["Send"])
     elif "switch" == text.lower():
-        socket.send_string("switch")
+        socket.send_string("Switch")
     else:
         temp = "Error - Wrong Text - Expected " + jsonFile["Receive"]
         socket.send_string(temp)
