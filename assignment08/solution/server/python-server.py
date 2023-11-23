@@ -52,7 +52,7 @@ while True:
         firstRequest = False
     
     #finding the beacon that matches the name
-    if beacon == "" and text.split()[0].lower() == "beacon":
+    if text.split()[0] == "beacon":
         try:
             for i in jsonFile:
                 if text.split()[1] == i["name"]:
@@ -61,6 +61,26 @@ while True:
         except:
             print("Enter proper beacon name")
             beacon = ""
+    elif text.split()[0] == "id":
+        try:
+            for i in jsonFile:
+                if text.split()[1] == i["id"]:
+                    beacon = i
+                    break
+        except:
+            print("Enter proper beacon id")
+            beacon = ""
+
+    elif text.split()[0] == "factory_id":
+        try:
+            for i in jsonFile:
+                if text.split()[1] == i["factory_id"]:
+                    beacon = i
+                    break
+        except:
+            print("Enter proper beacon factory_id")
+            beacon = ""
+
     elif text == "lowbat":
         #finding all lowbat beacons and adding them to a list
         lowbatBeacons = []
@@ -71,14 +91,22 @@ while True:
         except:
             print("ERROR")
             lowbatBeacons = []
+    elif "http://ns-mn1.cse.nd.edu/sysprogfa23/assignment08/data/" in text:
+        requestURL = text
+        result = requests.get(requestURL)
+        jsonFile = result.json()
+        socket.send_string("Changed files")
+        continue
 
     #  Send reply back to client
-    if text.split()[0].lower() == "beacon" and beacon != "":
-        tempString = "0," + beacon["factory_id"] + "," + beacon["name"] + "," + beacon["battery_level"] + "," + beacon["battery_updated_date"] + "," + beacon["hardware"]
+    if (text.split()[0] == "beacon" or text.split()[0] == "id" or text.split()[0] == "factory_id") and beacon != "":
+        num = int(beacon["id"], 16)
+        tempString = "0," + beacon["factory_id"] + "," + beacon["name"] + "," + beacon["battery_level"] + "," + beacon["battery_updated_date"] + "," + beacon["hardware"] + "," + beacon["id"] + "," + str(num)
         socket.send_string(tempString)
         beacon = ""
     elif (text == "lowbat" or text == "more")  and len(lowbatBeacons) > 0:
-        tempString = str(len(lowbatBeacons)) + "," + lowbatBeacons[0]["factory_id"] + "," + lowbatBeacons[0]["name"] + "," + lowbatBeacons[0]["battery_level"] + "," + lowbatBeacons[0]["battery_updated_date"] + "," + lowbatBeacons[0]["hardware"]
+        num = int(lowbatBeacons[0]["id"], 16)
+        tempString = str(len(lowbatBeacons)-1) + "," + lowbatBeacons[0]["factory_id"] + "," + lowbatBeacons[0]["name"] + "," + lowbatBeacons[0]["battery_level"] + "," + lowbatBeacons[0]["battery_updated_date"] + "," + lowbatBeacons[0]["hardware"] + "," + lowbatBeacons[0]["id"] + "," + str(num)
         socket.send_string(tempString)
         lowbatBeacons.pop(0)
     else:
