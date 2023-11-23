@@ -22,6 +22,7 @@ hasReceive = True
 hasSend = True
 
 beacon = ""
+lowbatBeacons = []
 
 # Pick 40000 + last three digits of your 900 ID
 serverPort = 40872
@@ -50,6 +51,7 @@ while True:
 
         firstRequest = False
     
+    #finding the beacon that matches the name
     if beacon == "" and text.split()[0].lower() == "beacon":
         try:
             for i in jsonFile:
@@ -59,30 +61,25 @@ while True:
         except:
             print("Enter proper beacon name")
             beacon = ""
+    elif text == "lowbat":
+        #finding all lowbat beacons and adding them to a list
+        lowbatBeacons = []
+        try:
+            for i in jsonFile:
+                if "low" in i["battery_level"].lower():
+                    lowbatBeacons.append(i)
+        except:
+            print("ERROR")
+            lowbatBeacons = []
 
     #  Send reply back to client
     if text.split()[0].lower() == "beacon" and beacon != "":
         tempString = "0," + beacon["factory_id"] + "," + beacon["name"] + "," + beacon["battery_level"] + "," + beacon["battery_updated_date"] + "," + beacon["hardware"]
         socket.send_string(tempString)
         beacon = ""
-    elif text.lower() in beacon:
-        res = beacon[text.lower()]
-        socket.send_string(res)
+    elif (text == "lowbat" or text == "more")  and len(lowbatBeacons) > 0:
+        tempString = str(len(lowbatBeacons)) + "," + lowbatBeacons[0]["factory_id"] + "," + lowbatBeacons[0]["name"] + "," + lowbatBeacons[0]["battery_level"] + "," + lowbatBeacons[0]["battery_updated_date"] + "," + lowbatBeacons[0]["hardware"]
+        socket.send_string(tempString)
+        lowbatBeacons.pop(0)
     else:
         socket.send_string("FAILURE - IMPROPER INPUT")
-
-    """if text.lower() == "numleft":
-        res = jsonFile[name][text.lower()]
-        socket.send_string(res)
-    elif text.lower() == "factory_id":
-        socket.send_string(jsonFile["Send"])
-    elif text.lower() == "name":
-        pass
-    elif text.lower() == "battery_level":
-        pass
-    elif text.lower() == "battery_updated_date":
-        pass
-    elif text.lower() == "hardware":
-        pass
-    else:
-        socket.send_string("FAILURE - IMPROPER INPUT")"""
