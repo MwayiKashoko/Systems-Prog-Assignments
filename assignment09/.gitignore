@@ -1,2 +1,5 @@
-#ignore analyze directory
+#ignore all these directories
 analyze/
+example/
+task4/analyze/
+task4/extracted
